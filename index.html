@@ -9,17 +9,50 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#F8F7F4;--text:#2d3748}
-    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
-    .plan-card{transition:.25s;border-width:2px}
-    .plan-card.active{border-color:#4A90E2;transform:translateY(-4px);box-shadow:0 10px 20px -10px rgba(0,0,0,.25)}
-    .accordion-content{max-height:0;overflow:hidden;transition:max-height .4s}
-    .accordion-header .accordion-icon{transition:transform .3s}
-    .accordion-header.open .accordion-icon{transform:rotate(45deg)}
+    :root {
+      --bg: #F8F7F4;
+      --text: #2d3748;
+    }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .plan-card {
+      transition: .25s;
+      border-width: 2px;
+    }
+    .plan-card.active {
+      border-color: #4A90E2;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,.25);
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s;
+    }
+    .accordion-header .accordion-icon {
+      transition: transform .3s;
+    }
+    .accordion-header.open .accordion-icon {
+      transform: rotate(45deg);
+    }
+    /* Mejora de la lista ordenada */
+    .terms-list {
+      list-style-type: decimal;
+      margin-left: 1.5rem;
+      padding-left: 0.5rem;
+      line-height: 1.7;
+    }
+    .terms-list li {
+      margin-bottom: 0.7rem;
+      background: transparent;
+    }
   </style>
 </head>
 <body class="antialiased">
-
   <!-- HERO con logo centrado y más chico -->
   <section class="py-8 md:py-10 flex items-center justify-center" style="background-color:#F8F7F4;">
     <img
@@ -30,7 +63,6 @@
       decoding="async"
     />
   </section>
-
   <div class="container mx-auto px-4 md:px-8 max-w-6xl">
     <main>
       <!-- PLANES -->
@@ -39,7 +71,6 @@
           <h2 class="text-3xl font-extrabold">Nuestros Planes</h2>
           <p class="mt-2 text-gray-600">Elegí un plan. Podés hacer clic para resaltarlo.</p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <article id="plan-pro" class="plan-card bg-white p-8 rounded-xl shadow-md border-transparent cursor-pointer">
             <h3 class="text-2xl font-bold">Plan Pro</h3>
@@ -54,7 +85,6 @@
               <li class="opacity-60">✗ Agente Conversacional (WhatsApp + IG)</li>
             </ul>
           </article>
-
           <article id="plan-ultra" class="plan-card bg-white p-8 rounded-xl shadow-md border-transparent cursor-pointer active">
             <h3 class="text-2xl font-bold">Plan Ultra</h3>
             <p class="text-4xl font-extrabold my-4">$299<span class="text-lg font-normal text-gray-500">/mes</span></p>
@@ -70,7 +100,6 @@
           </article>
         </div>
       </section>
-
       <!-- PROCESO (acordeón) -->
       <section id="process" class="mb-16">
         <div id="acc-proc-h" class="accordion-header bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer">
@@ -107,7 +136,6 @@
           </div>
         </div>
       </section>
-
       <!-- TÉRMINOS (acordeón) – lista ordenada y con espacio -->
       <section id="terms">
         <div id="acc-terms-h" class="accordion-header bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer">
@@ -117,7 +145,7 @@
           </div>
           <div id="acc-terms-c" class="accordion-content mt-6 text-gray-700 leading-relaxed">
             <p class="mb-4">El primer pago implica aceptación de estos términos:</p>
-            <ol class="list-decimal list-outside pl-6 space-y-3">
+            <ol class="terms-list">
               <li><strong>Obligaciones del Cliente:</strong> aportar material de marca, accesos y feedback oportuno.</li>
               <li><strong>Propiedad Intelectual:</strong> el material final es del cliente; AI Business Lab puede mostrarlo en su portafolio salvo pacto contrario.</li>
               <li><strong>Confidencialidad:</strong> ambas partes resguardan la información sensible compartida.</li>
@@ -128,24 +156,28 @@
         </div>
       </section>
     </main>
-
     <footer class="text-center mt-16 pb-12">
       <p class="text-gray-600">© 2025 AI Business Lab. Todos los derechos reservados.</p>
     </footer>
   </div>
-
   <script>
     // Toggle plan cards
-    const cards=[...document.querySelectorAll('.plan-card')];
-    cards.forEach(c=>c.addEventListener('click',()=>{cards.forEach(x=>x.classList.remove('active'));c.classList.add('active')}));
-
+    const cards = [...document.querySelectorAll('.plan-card')];
+    cards.forEach(c => c.addEventListener('click', () => {
+      cards.forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+    }));
     // Simple accordions
     [["acc-proc-h","acc-proc-c"],["acc-terms-h","acc-terms-c"]].forEach(([h,c])=>{
       const head=document.getElementById(h), cont=document.getElementById(c);
       if(!head||!cont) return;
       head.addEventListener('click',()=>{
-        const open=cont.style.maxHeight;
-        cont.style.maxHeight=open?null:cont.scrollHeight+"px";
+        const open=cont.style.maxHeight && cont.style.maxHeight !== "0px";
+        if(open) {
+          cont.style.maxHeight = null;
+        } else {
+          cont.style.maxHeight = cont.scrollHeight+"px";
+        }
         head.classList.toggle('open', !open);
       });
     });
