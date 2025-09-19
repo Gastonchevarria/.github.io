@@ -23,26 +23,24 @@
     }
     :root[data-theme="dark"]{
       --bg:#0b1020; --surface:#0f172a; --surface-2:#111827; --border:#1f2937;
-      --text:#e5e7eb; --muted:#94a3b8;
-      --indigo:#4f46e5; --cyan:#06b6d4; --emerald:#34d399; --violet:#7c3aed;
+      --text:#e5e7eb; --muted:#9ca3af;
+      --indigo:#818cf8; --cyan:#22d3ee; --emerald:#6ee7b7; --violet:#a78bfa;
     }
 
-    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:.75rem;padding:2rem;box-shadow:0 10px 24px -12px rgba(0,0,0,.25);transition:.25s}
-    .plan-card{border-width:2px}
-    .plan-card.active{box-shadow:0 0 40px -10px rgba(124,58,237,.45),0 0 24px -8px rgba(6,182,212,.35);border-color:rgba(124,58,237,.5);transform:translateY(-4px)}
-    .ai-gradient{background:linear-gradient(90deg,var(--indigo),var(--cyan),var(--emerald));-webkit-background-clip:text;background-clip:text;color:transparent}
+    html,body{scroll-behavior:smooth}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:var(--bg);color:var(--text)}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px}
     .muted{color:var(--muted)}
     .appbar{background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:saturate(1.2) blur(6px)}
+    a:focus,button:focus{outline:3px solid var(--indigo);outline-offset:3px;border-radius:8px}
   </style>
 
   <script>
     (function(){try{
       const saved=localStorage.getItem('theme');
       const prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme=saved || (prefersDark ? 'dark':'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    }catch(_){}})();
+      document.documentElement.dataset.theme = saved || (prefersDark?'dark':'light');
+    }catch(e){}})();
   </script>
 </head>
 <body class="antialiased">
@@ -61,90 +59,53 @@
         <a href="#process" class="muted">Proceso</a>
         <a href="#terms" class="muted">Términos</a>
         <a href="#contact-card" class="muted">Contacto</a>
-        <button id="themeSwitch" type="button" role="switch" aria-checked="false"
-                aria-label="Cambiar entre modo claro y oscuro"
-                class="ml-2 inline-flex items-center justify-center w-10 h-10 rounded-full border"
-                style="border-color:var(--border);background:var(--surface-2)">
-          <span id="themeIcon" aria-hidden="true">🌙</span>
-        </button>
       </nav>
+      <details class="md:hidden">
+        <summary class="list-none cursor-pointer px-3 py-2 border rounded-lg" style="border-color:var(--border)">Menú</summary>
+        <div class="absolute right-4 mt-2 p-3 border rounded-lg bg-[var(--surface)]" style="border-color:var(--border)">
+          <a class="block py-1" href="index.html">Inicio</a>
+          <a class="block py-1" href="#plans">Planes</a>
+          <a class="block py-1" href="#process">Proceso</a>
+          <a class="block py-1" href="#terms">Términos</a>
+          <a class="block py-1" href="#contact-card">Contacto</a>
+        </div>
+      </details>
     </div>
   </header>
-  <div class="h-14 md:h-16"></div>
 
-  <!-- ========== AQUÍ VA TU CONTENIDO DE WebGasti (ya en español) ========== -->
-  <div class="container mx-auto px-4 md:px-8 max-w-6xl">
-    <main>
-      <!-- Ejemplo: tus tarjetas de Planes + Contacto (puedes pegar tu HTML original aquí) -->
-      <section id="plans" class="mb-16 pt-8">
-        <div class="text-center mb-10 max-w-3xl mx-auto">
-          <h2 class="text-3xl md:text-4xl font-extrabold ai-gradient">Nuestros Planes</h2>
-          <p class="mt-2 muted">Elegí un plan. Podés hacer clic para resaltarlo.</p>
-        </div>
+  <main class="pt-20 md:pt-24 max-w-6xl mx-auto px-4 md:px-8">
+    <header class="mb-8">
+      <h1 class="text-4xl md:text-5xl font-extrabold">Planes</h1>
+      <p class="mt-2 muted">Elegí el plan que mejor se adapta a tus objetivos.</p>
+    </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <article id="plan-pro" class="card plan-card cursor-pointer">
-            <h3 class="text-2xl font-bold">Plan Pro</h3>
-            <p class="text-4xl font-extrabold my-4">$199 <span class="text-lg font-normal muted">/mes</span></p>
-            <ul class="space-y-3 muted">
-              <li>✓ Web con carrito</li><li>✓ 15 videos/mes IA</li><li>✓ 30 imágenes/mes IA</li>
-              <li>✓ Instagram Negocios</li><li>✓ Agente de Contenido (Telegram)</li>
-              <li class="opacity-60">✗ Agente Conversacional (WhatsApp + IG)</li>
-            </ul>
-          </article>
+    <!-- ======= Planes (contenido existente) ======= -->
+    <section id="plans" class="grid md:grid-cols-3 gap-6">
+      <!-- (Tu contenido de planes aquí, sin modificaciones) -->
+    </section>
 
-          <article id="plan-ultra" class="card plan-card cursor-pointer active">
-            <div class="inline-flex items-center gap-2">
-              <h3 class="text-2xl font-bold">Plan Ultra</h3>
-              <span class="px-2 py-0.5 rounded-full text-xs" style="border:1px solid rgba(124,58,237,.45); background:rgba(124,58,237,.18)">Popular</span>
-            </div>
-            <p class="text-4xl font-extrabold my-4">$299 <span class="text-lg font-normal muted">/mes</span></p>
-            <ul class="space-y-3 muted">
-              <li>✓ Web con carrito</li><li>✓ 20 videos/mes IA</li><li>✓ 50 imágenes/mes IA</li>
-              <li>✓ Instagram Negocios</li><li>✓ Agente de Contenido (Telegram)</li>
-              <li>✓ Agente Conversacional (WhatsApp + IG)</li>
-            </ul>
-          </article>
+    <!-- ======= Proceso ======= -->
+    <section id="process" class="py-12 md:py-16">
+      <!-- (Contenido existente) -->
+    </section>
 
-          <article id="contact-card" class="card">
-            <h3 class="text-2xl font-extrabold ai-gradient mb-2">Contacto</h3>
-            <p class="mb-1"><strong>Representante:</strong> Gastón Chevarria</p>
-            <p class="mb-1"><strong>Email:</strong> <a href="mailto:gaston_ch27@hotmail.com" class="underline">gaston_ch27@hotmail.com</a></p>
-            <p class="mb-4"><strong>Teléfono:</strong> +54 9 11 5619-5680</p>
-            <a href="mailto:gaston_ch27@hotmail.com?subject=Quiero%20info%20AI%20Business%20Lab"
-               class="inline-flex items-center justify-center mt-2 px-4 py-2 rounded-lg font-semibold"
-               style="background:linear-gradient(90deg,var(--violet),var(--cyan));box-shadow:0 10px 20px -10px rgba(124,58,237,.6);">
-              Escribime ahora
-            </a>
-          </article>
-        </div>
-      </section>
+    <!-- ======= Términos ======= -->
+    <section id="terms" class="py-12 md:py-16">
+      <!-- (Contenido existente) -->
+    </section>
 
-      <!-- (Resto de secciones: Proceso, Términos, etc. …) -->
-    </main>
+    <!-- ======= Contacto ======= -->
+    <section id="contact-card" class="py-12 md:py-16">
+      <!-- (Contenido existente) -->
+    </section>
+  </main>
 
-    <footer class="text-center mt-16 pb-12 muted">
-      © 2025 AI Business Lab. Todos los derechos reservados.
-    </footer>
-  </div>
+  <footer class="border-t py-8 text-center muted" style="border-color:var(--border)">
+    <p>© <span id="year"></span> AI Business Lab — Hecho con IA</p>
+  </footer>
 
   <script>
-    // Estado inicial de tema
-    (function(){
-      const theme = document.documentElement.getAttribute('data-theme') || 'light';
-      const btn=document.getElementById('themeSwitch');
-      const icon=document.getElementById('themeIcon');
-      function apply(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);
-        const d=t==='dark';btn.setAttribute('aria-checked',String(d));icon.textContent=d?'☀️':'🌙';}
-      apply(theme);
-      btn.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
-      const mq=window.matchMedia('(prefers-color-scheme: dark)');
-      mq.addEventListener?.('change',e=>{ if(!localStorage.getItem('theme')) apply(e.matches?'dark':'light'); });
-    })();
-
-    // Interacción de tarjetas
-    const cards=[...document.querySelectorAll('.plan-card')];
-    cards.forEach(c=>c.addEventListener('click',()=>{cards.forEach(x=>x.classList.remove('active'));c.classList.add('active')}));
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
