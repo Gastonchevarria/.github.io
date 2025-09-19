@@ -3,201 +3,119 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Business Lab — Propuesta</title>
+  <title>AI Business Lab — Inicio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #F8F7F4;
-      --text: #2d3748;
+    :root{
+      --bg:#0b1020; --surface:#0f172a; --border:#1f2937; --text:#e5e7eb; --muted:#94a3b8;
+      --indigo:#4f46e5; --cyan:#06b6d4; --emerald:#34d399; --violet:#7c3aed;
     }
-    body {
-      font-family: Inter, system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-    .plan-card {
-      transition: .25s;
-      border-width: 2px;
-    }
-    .plan-card.active {
-      border-color: #4A90E2;
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px -10px rgba(0,0,0,.25);
-    }
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .4s;
-    }
-    .accordion-header .accordion-icon {
-      transition: transform .3s;
-    }
-    .accordion-header.open .accordion-icon {
-      transform: rotate(45deg);
-    }
-    .terms-list {
-      list-style-type: decimal;
-      margin-left: 1.5rem;
-      padding-left: 0.5rem;
-      line-height: 1.7;
-    }
-    .terms-list li {
-      margin-bottom: 0.7rem;
-      background: transparent;
-    }
-    .logo-wrapper {
-      background: var(--bg);
-      padding: 0;
-      border-radius: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:1rem;padding:1.5rem;box-shadow:0 20px 40px -20px rgba(0,0,0,.45)}
+    .ai-grad{background:linear-gradient(90deg,var(--indigo),var(--cyan),var(--emerald));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .muted{color:var(--muted)}
+    .btn-grad{background:linear-gradient(90deg,var(--violet),var(--cyan));box-shadow:0 10px 24px -12px rgba(124,58,237,.65)}
+    .appbar{background:#0f172a;border-bottom:1px solid var(--border)}
   </style>
 </head>
 <body class="antialiased">
-  <!-- HERO con logo centrado y sin cuadritos -->
-  <section class="py-8 md:py-10 logo-wrapper">
-    <img
-      src="/assets/logo.jpg"
-      alt="AI Business Lab"
-      class="mx-auto h-auto w-32 sm:w-40 md:w-48 lg:w-56 xl:w-64 max-w-full"
-      loading="eager"
-      decoding="async"
-      style="background:#F8F7F4"
-    />
+
+  <!-- Barra superior con logo chico -->
+  <header class="appbar sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center justify-between">
+      <a href="index.html" class="inline-flex items-center gap-3">
+        <img src="assets/logo.jpg" alt="AI Business Lab" width="160" height="48"
+             class="h-7 sm:h-8 md:h-9 w-auto select-none" loading="eager" decoding="async">
+        <span class="sr-only">AI Business Lab</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm muted">
+        <a href="#hero" class="hover:text-white">Inicio</a>
+        <a href="#galeria" class="hover:text-white">Galería</a>
+        <a href="#video" class="hover:text-white">Video</a>
+        <a href="planes.html" class="hover:text-white">Planes</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO dividido -->
+  <section id="hero" class="relative overflow-hidden">
+    <div class="absolute inset-0" aria-hidden="true"
+         style="background: radial-gradient(1000px 600px at 0% 0%, rgba(79,70,229,.15), transparent 60%),
+                          radial-gradient(1000px 600px at 100% 100%, rgba(6,182,212,.12), transparent 60%);"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <!-- Marca + copy -->
+        <div>
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs border"
+                style="border-color:rgba(148,163,184,.35); background:rgba(15,23,42,.6)">
+            • AI Business Lab — contenido y automatización
+          </span>
+          <h1 class="mt-4 text-4xl md:text-5xl font-extrabold leading-tight">
+            Crea contenido <span class="ai-grad">profesional con IA</span> para tu negocio
+          </h1>
+          <p class="mt-3 text-lg muted max-w-xl">
+            Transformamos ideas en imágenes y videos listos para publicar. Automatización de contenidos, branding y agentes conversacionales.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="planes.html" class="btn-grad text-white px-5 py-2.5 rounded-lg font-semibold">Ver planes</a>
+            <a href="#video" class="px-5 py-2.5 rounded-lg font-semibold border" style="border-color:var(--border)">Ver demo</a>
+          </div>
+        </div>
+
+        <!-- Imagen destacada -->
+        <div class="rounded-2xl overflow-hidden border" style="border-color:var(--border)">
+          <img src="assets/ai-1.jpg" alt="Generación de contenido con IA" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
   </section>
-  <div class="container mx-auto px-4 md:px-8 max-w-6xl">
-    <main>
-      <!-- PLANES -->
-      <section id="plans" class="mb-16">
-        <div class="text-center mb-10 max-w-3xl mx-auto">
-          <h2 class="text-3xl font-extrabold">Nuestros Planes</h2>
-          <p class="mt-2 text-gray-600">Elegí un plan. Podés hacer clic para resaltarlo.</p>
+
+  <!-- Galería -->
+  <section id="galeria" class="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="card">
+        <h3 class="text-xl font-bold">Imágenes con IA</h3>
+        <p class="mt-1 muted">Productos, lifestyle, flyers y más en minutos.</p>
+        <img src="assets/ai-2.jpg" alt="Imágenes IA" class="mt-4 rounded-lg border" style="border-color:var(--border)">
+      </article>
+      <article class="card">
+        <h3 class="text-xl font-bold">Contenido para Redes</h3>
+        <p class="mt-1 muted">Piezas optimizadas para Instagram y TikTok.</p>
+        <img src="assets/content-1.jpg" alt="Creación de contenido" class="mt-4 rounded-lg border" style="border-color:var(--border)">
+      </article>
+      <article class="card">
+        <h3 class="text-xl font-bold">Automatización</h3>
+        <p class="mt-1 muted">Agentes que publican y responden por vos.</p>
+        <div class="mt-4 p-4 rounded-lg border text-sm muted" style="border-color:var(--border)">
+          Incluye chatbot y flujos, calendario editorial, publicación automática y reportes.
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <article id="plan-pro" class="plan-card bg-white p-8 rounded-xl shadow-md border-transparent cursor-pointer">
-            <h3 class="text-2xl font-bold">Plan Pro</h3>
-            <p class="text-4xl font-extrabold my-4">$199<span class="text-lg font-normal text-gray-500">/mes</span></p>
-            <p class="text-gray-600 mb-6">Para empezar a automatizar y crecer.</p>
-            <ul class="space-y-3 text-gray-700">
-              <li>✓ <strong>Página Web</strong> con carrito</li>
-              <li>✓ <strong>15 Videos/mes</strong> IA</li>
-              <li>✓ <strong>30 Imágenes/mes</strong> IA</li>
-              <li>✓ Instagram para Negocios</li>
-              <li>✓ Agente de Contenido (Telegram)</li>
-              <li class="opacity-60">✗ Agente Conversacional (WhatsApp + IG)</li>
-            </ul>
-          </article>
-          <article id="plan-ultra" class="plan-card bg-white p-8 rounded-xl shadow-md border-transparent cursor-pointer active">
-            <h3 class="text-2xl font-bold">Plan Ultra</h3>
-            <p class="text-4xl font-extrabold my-4">$299<span class="text-lg font-normal text-gray-500">/mes</span></p>
-            <p class="text-gray-600 mb-6">Suite completa de automatización.</p>
-            <ul class="space-y-3 text-gray-700">
-              <li>✓ <strong>Página Web</strong> con carrito</li>
-              <li>✓ <strong>20 Videos/mes</strong> IA</li>
-              <li>✓ <strong>50 Imágenes/mes</strong> IA</li>
-              <li>✓ Instagram para Negocios</li>
-              <li>✓ Agente de Contenido (Telegram)</li>
-              <li>✓ <strong>Agente Conversacional</strong> (WhatsApp + IG)</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-      <!-- PROCESO (acordeón) -->
-      <section id="process" class="mb-16">
-        <div id="acc-proc-h" class="accordion-header bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer">
-          <div class="flex items-center justify-between">
-            <div>
-              <h2 class="text-3xl font-extrabold">Nuestro Proceso de Trabajo</h2>
-              <p class="text-gray-600 mt-1">Colaborativo y eficiente.</p>
-            </div>
-            <span class="accordion-icon text-3xl font-light text-gray-500">+</span>
-          </div>
-          <div id="acc-proc-c" class="accordion-content mt-6 text-gray-700 leading-relaxed">
-            <ol class="relative border-l border-gray-200 space-y-10 ml-4">
-              <li class="ml-6">
-                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white text-blue-800 font-bold">1</span>
-                <h3 class="mb-1 text-lg font-semibold">Reunión Inicial y Estrategia</h3>
-                <p>Objetivos, público y estrategia de comunicación.</p>
-              </li>
-              <li class="ml-6">
-                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white text-blue-800 font-bold">2</span>
-                <h3 class="mb-1 text-lg font-semibold">Implementación (1–2 semanas)</h3>
-                <p>Web, redes y agentes de IA a medida.</p>
-              </li>
-              <li class="ml-6">
-                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white text-blue-800 font-bold">3</span>
-                <h3 class="mb-1 text-lg font-semibold">Revisión y Lanzamiento</h3>
-                <p>Presentación, aprobación y go-live.</p>
-              </li>
-              <li class="ml-6">
-                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white text-blue-800 font-bold">4</span>
-                <h3 class="mb-1 text-lg font-semibold">Soporte y Optimización</h3>
-                <p>Monitoreo y mejoras mensuales.</p>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </section>
-      <!-- TÉRMINOS (acordeón) – lista ordenada y con espacio -->
-      <section id="terms">
-        <div id="acc-terms-h" class="accordion-header bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer">
-          <div class="flex items-center justify-between">
-            <h2 class="text-3xl font-extrabold">Términos y Condiciones</h2>
-            <span class="accordion-icon text-3xl font-light text-gray-500">+</span>
-          </div>
-          <div id="acc-terms-c" class="accordion-content mt-6 text-gray-700 leading-relaxed">
-            <p class="mb-4">El primer pago implica aceptación de estos términos:</p>
-            <ol class="terms-list">
-              <li><strong>Obligaciones del Cliente:</strong> aportar material de marca, accesos y feedback oportuno.</li>
-              <li><strong>Propiedad Intelectual:</strong> el material final es del cliente; AI Business Lab puede mostrarlo en su portafolio salvo pacto contrario.</li>
-              <li><strong>Confidencialidad:</strong> ambas partes resguardan la información sensible compartida.</li>
-              <li><strong>Cancelación:</strong> aviso con 30 días. No hay reembolso del mes en curso; si AIBL cancela, se devuelve lo proporcional no trabajado.</li>
-              <li><strong>Forma de Pago:</strong> suscripción mensual adelantada (1–5 de cada mes).</li>
-            </ol>
-          </div>
-        </div>
-      </section>
-      <!-- Contacto -->
-      <section id="contacto" class="my-10">
-        <div class="bg-white p-6 rounded-xl shadow-md max-w-lg mx-auto">
-          <h2 class="text-2xl font-extrabold mb-2">Contacto</h2>
-          <p class="mb-1"><strong>Representante:</strong> Gastón Chevarria</p>
-          <p class="mb-1"><strong>Email:</strong> <a href="mailto:gaston_ch27@hotmail.com" class="text-blue-600 underline">gaston_ch27@hotmail.com</a></p>
-          <p class="mb-1"><strong>Teléfono:</strong> +54 9 11 5619-5680</p>
-        </div>
-      </section>
-    </main>
-    <footer class="text-center mt-16 pb-12">
-      <p class="text-gray-600">© 2025 AI Business Lab. Todos los derechos reservados.</p>
-    </footer>
-  </div>
-  <script>
-    // Toggle plan cards
-    const cards = [...document.querySelectorAll('.plan-card')];
-    cards.forEach(c => c.addEventListener('click', () => {
-      cards.forEach(x => x.classList.remove('active'));
-      c.classList.add('active');
-    }));
-    // Simple accordions
-    [["acc-proc-h","acc-proc-c"],["acc-terms-h","acc-terms-c"]].forEach(([h,c])=>{
-      const head=document.getElementById(h), cont=document.getElementById(c);
-      if(!head||!cont) return;
-      head.addEventListener('click',()=>{
-        const open=cont.style.maxHeight && cont.style.maxHeight !== "0px";
-        if(open) {
-          cont.style.maxHeight = null;
-        } else {
-          cont.style.maxHeight = cont.scrollHeight+"px";
-        }
-        head.classList.toggle('open', !open);
-      });
-    });
-  </script>
+      </article>
+    </div>
+  </section>
+
+  <!-- Video demo -->
+  <section id="video" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+    <div class="card">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-2xl font-extrabold ai-grad">De imágenes a video — Demo</h3>
+        <span class="text-xs px-2 py-1 rounded-full"
+              style="border:1px solid rgba(6,182,212,.4); color:#67e8f9; background:rgba(6,182,212,.1)">Generado con IA</span>
+      </div>
+      <video class="w-full rounded-lg border" style="border-color:var(--border)" controls
+             poster="assets/IMG_3951.JPG" preload="metadata">
+        <source src="assets/Generacion_de_video_de_gin_Quebracho.mp4" type="video/mp4">
+        Tu navegador no soporta la etiqueta de video.
+      </video>
+      <p class="mt-3 text-sm muted">A partir de fotos del producto, generamos un video promocional en minutos.</p>
+    </div>
+  </section>
+
+  <footer class="text-center pb-10 muted">
+    © 2025 AI Business Lab. Todos los derechos reservados.
+  </footer>
 </body>
 </html>
