@@ -39,7 +39,6 @@
     .accordion-header.open .accordion-icon {
       transform: rotate(45deg);
     }
-    /* Mejora de la lista ordenada */
     .terms-list {
       list-style-type: decimal;
       margin-left: 1.5rem;
@@ -50,17 +49,27 @@
       margin-bottom: 0.7rem;
       background: transparent;
     }
+    /* Estilo logo fondo igual que pagina */
+    .logo-wrapper {
+      background: var(--bg);
+      padding: 0;
+      border-radius: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
 </head>
 <body class="antialiased">
-  <!-- HERO con logo centrado y más chico -->
-  <section class="py-8 md:py-10 flex items-center justify-center" style="background-color:#F8F7F4;">
+  <!-- HERO con logo centrado y sin cuadritos -->
+  <section class="py-8 md:py-10 logo-wrapper">
     <img
-      src="./assets/logo.png"
+      src="/assets/logo.png"
       alt="AI Business Lab"
       class="mx-auto h-auto w-32 sm:w-40 md:w-48 lg:w-56 xl:w-64 max-w-full"
       loading="eager"
       decoding="async"
+      style="background:#F8F7F4"
     />
   </section>
   <div class="container mx-auto px-4 md:px-8 max-w-6xl">
