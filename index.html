@@ -1,6 +1,6 @@
 <!-- Chosen Palette: Modern Tech -->
-<!-- Application Structure Plan: Se ha diseñado una aplicación de una sola página con un enfoque de "dashboard comparativo". La estructura principal consiste en un encabezado con el logotipo, una sección de planes interactiva, una demostración en vivo de la IA para generar contenido, un diagrama del proceso de trabajo y una sección de términos legales colapsable con un simplificador de IA. Esta arquitectura fue elegida para transformar un documento estático en una herramienta de ventas, permitiendo a los usuarios no solo leer sobre los servicios, sino experimentarlos directamente, fomentando la confianza y acelerando la decisión de compra. -->
-<!-- Visualization & Content Choices: 1. Planes de Servicio -> Goal: Comparar -> Viz: Tarjetas interactivas (HTML/Tailwind) -> Interaction: Clic para resaltar un plan -> Justification: Facilita la comparación visual y la selección del usuario. 2. Demostración de IA -> Goal: Demostrar valor -> Viz: Formulario y área de resultados dinámicos (HTML/JS) -> Interaction: El usuario introduce su tipo de negocio y la API de Gemini genera ideas de contenido -> Justification: Es una prueba de concepto en vivo que muestra la capacidad del servicio. 3. Proceso de Trabajo -> Goal: Organizar/Informar -> Viz: Línea de tiempo vertical (HTML/Tailwind) -> Justification: Presenta el proceso de forma más visual y digerible que una lista. 4. Términos y Condiciones -> Goal: Informar/Simplificar -> Viz: Acordeón colapsable con botón y modal (HTML/JS) -> Interaction: Clic para expandir los términos y clic en un botón para que la API de Gemini los simplifique en un modal -> Justification: Mejora la experiencia de usuario ocultando texto denso y aumenta la transparencia. -->
+<!-- Application Structure Plan: Se ha diseñado una aplicación de una sola página con un enfoque de "dashboard comparativo". La estructura principal consiste en un encabezado con el logotipo, una sección de planes interactiva, un diagrama del proceso de trabajo y una sección de términos legales colapsable. Esta arquitectura fue elegida para presentar la información de forma clara y profesional. -->
+<!-- Visualization & Content Choices: 1. Planes de Servicio -> Goal: Comparar -> Viz: Tarjetas interactivas (HTML/Tailwind) -> Interaction: Clic para resaltar un plan -> Justification: Facilita la comparación visual y la selección del usuario. 2. Proceso de Trabajo -> Goal: Organizar/Informar -> Viz: Línea de tiempo vertical (HTML/Tailwind) -> Justification: Presenta el proceso de forma más visual y digerible que una lista. 3. Términos y Condiciones -> Goal: Informar -> Viz: Acordeón colapsable (HTML/JS) -> Justification: Mejora la experiencia de usuario ocultando texto denso por defecto. -->
 <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 <!DOCTYPE html>
 <html lang="es">
@@ -36,21 +36,6 @@
             overflow: hidden;
             transition: max-height 0.5s ease-in-out;
         }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4A90E2;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .modal-backdrop {
-            transition: opacity 0.3s ease;
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -58,7 +43,7 @@
     <div class="container mx-auto p-4 md:p-8 max-w-6xl">
         
         <header class="text-center mb-12">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAQYBAgMBIgACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1VWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8vT19vf4+fr/2gAMAwEAAhEDEQA/AP0v0P8A48U+pq7WJof/AB4p9TV2gAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigA-/9k=" alt="AI Business Lab Logo" class="h-20 w-auto mx-auto mb-4"/>
+            <img src="logo.jpg" alt="AI Business Lab Logo" class="h-20 w-auto mx-auto mb-4"/>
             <p class="text-lg text-gray-600">Potenciamos tu negocio con soluciones de Inteligencia Artificial.</p>
         </header>
 
@@ -93,20 +78,6 @@
                             <li class="flex items-start"><span class="feature-icon mr-3 text-blue-500">✓</span> <span><strong>Agente de Contenido</strong> vía Telegram.</span></li>
                             <li class="flex items-start"><span class="feature-icon mr-3 text-blue-500">✓</span> <span><strong>Agente Conversacional</strong> (WhatsApp + IG).</span></li>
                         </ul>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="ai-demo" class="mb-16 bg-white p-8 rounded-xl shadow-lg">
-                <h2 class="text-3xl font-bold text-center mb-2">✨ Demostración Interactiva de IA</h2>
-                <p class="text-center text-gray-600 mb-8">¿Sin inspiración? Describe tu negocio y deja que nuestra IA genere ideas de contenido para ti.</p>
-                <div class="max-w-xl mx-auto">
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <input id="business-type-input" type="text" placeholder="Ej: cafetería, tienda de ropa, gimnasio" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        <button id="generate-ideas-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md">Generar Ideas</button>
-                    </div>
-                    <div id="ideas-result" class="mt-8">
-                        <!-- AI generated content will appear here -->
                     </div>
                 </div>
             </section>
@@ -153,7 +124,7 @@
                  <div id="accordion-terms-header" class="accordion-header cursor-pointer bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
                     <div class="flex justify-between items-center flex-wrap gap-4">
                         <h2 class="text-3xl font-bold">Términos y Condiciones</h2>
-                        <button id="simplify-terms-btn" class="text-sm bg-indigo-100 text-indigo-700 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-200 transition-colors">✨ Explicar en lenguaje simple</button>
+                        <span class="accordion-icon text-3xl font-light text-gray-500 transition-transform transform">+</span>
                     </div>
                     <div id="accordion-terms-content" class="accordion-content mt-6 text-gray-700 space-y-4">
                         <div id="original-terms">
@@ -188,17 +159,6 @@
             <p class="text-gray-600">© 2025 AI Business Lab. Todos los derechos reservados.</p>
         </footer>
 
-    </div>
-
-    <!-- Modal for Simplified Terms -->
-    <div id="terms-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 modal-backdrop">
-        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full p-8 relative">
-            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
-            <h3 class="text-2xl font-bold mb-4">Términos y Condiciones Simplificados</h3>
-            <div id="simplified-terms-content" class="text-gray-700">
-                <!-- Simplified terms will be injected here -->
-            </div>
-        </div>
     </div>
 
     <script>
@@ -243,120 +203,6 @@
                         if (accordion.icon) accordion.icon.classList.add('rotate-45');
                     }
                 });
-            });
-
-            // Gemini API Features
-            const generateIdeasBtn = document.getElementById('generate-ideas-btn');
-            const businessTypeInput = document.getElementById('business-type-input');
-            const ideasResult = document.getElementById('ideas-result');
-            
-            const simplifyTermsBtn = document.getElementById('simplify-terms-btn');
-            const termsModal = document.getElementById('terms-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const simplifiedTermsContent = document.getElementById('simplified-terms-content');
-
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            async function callGeminiAPI(payload, resultContainer, button) {
-                if (button) button.disabled = true;
-                resultContainer.innerHTML = '<div class="flex justify-center items-center"><div class="loader"></div></div>';
-                
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                       throw new Error(`API Error: ${response.statusText}`);
-                    }
-
-                    const result = await response.json();
-                    const candidate = result.candidates?.[0];
-
-                    if (candidate && candidate.content?.parts?.[0]?.text) {
-                        return candidate.content.parts[0].text;
-                    } else {
-                        throw new Error("No se pudo obtener una respuesta válida de la IA.");
-                    }
-                } catch (error) {
-                    console.error("Error calling Gemini API:", error);
-                    resultContainer.innerHTML = `<p class="text-red-600 text-center">Hubo un error al generar la respuesta. Por favor, inténtalo de nuevo.</p>`;
-                    return null;
-                } finally {
-                     if (button) button.disabled = false;
-                }
-            }
-            
-            generateIdeasBtn.addEventListener('click', async () => {
-                const businessType = businessTypeInput.value.trim();
-                if (!businessType) {
-                    ideasResult.innerHTML = `<p class="text-red-600 text-center">Por favor, introduce un tipo de negocio.</p>`;
-                    return;
-                }
-
-                const systemPrompt = "Actúa como un experto en marketing de redes sociales para Instagram. Eres creativo, directo y usas emojis para hacer el contenido atractivo.";
-                const userQuery = `Genera 3 ideas de publicaciones para un negocio de '${businessType}'. Para cada idea, proporciona: 1. Un texto corto y atractivo para el post. 2. Una descripción detallada de la imagen que una IA debería generar para acompañar el post. Formatea tu respuesta en un estilo limpio, separando cada idea claramente.`;
-                
-                const payload = {
-                    contents: [{ parts: [{ text: userQuery }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] },
-                };
-
-                const responseText = await callGeminiAPI(payload, ideasResult, generateIdeasBtn);
-
-                if (responseText) {
-                    const formattedHtml = responseText
-                        .split(/(\d\.\s)/).filter(part => part.trim() !== '' && !part.match(/^\d\.\s$/))
-                        .map((idea, index) => {
-                             if (index % 2 === 0) return `<div class="bg-gray-50 p-6 rounded-lg mb-4 border border-gray-200">
-                                <h4 class="font-bold text-lg mb-2 text-gray-800">💡 Idea ${Math.ceil((index+1)/2)}</h4>
-                                ${idea.replace(/Texto del post:/gi, '<strong class="block mt-2 text-gray-700">Texto del post:</strong>')
-                                     .replace(/Descripción de la imagen:/gi, '<strong class="block mt-4 text-gray-700">Descripción de la imagen:</strong>')
-                                     .replace(/\n/g, '<br>')}
-                             </div>`;
-                             return '';
-                        }).join('');
-                    ideasResult.innerHTML = formattedHtml;
-                }
-            });
-
-            simplifyTermsBtn.addEventListener('click', async () => {
-                const termsText = document.getElementById('original-terms').innerText;
-                
-                const userQuery = `Simplifica los siguientes términos y condiciones en un lenguaje claro, simple y fácil de entender para una persona no experta en leyes. Usa viñetas o una lista numerada para cada punto principal. El texto a simplificar es: "${termsText}"`;
-
-                const payload = {
-                    contents: [{ parts: [{ text: userQuery }] }]
-                };
-                
-                simplifiedTermsContent.innerHTML = '';
-                termsModal.classList.remove('hidden');
-                termsModal.classList.add('flex');
-
-                const responseText = await callGeminiAPI(payload, simplifiedTermsContent, simplifyTermsBtn);
-                
-                if (responseText) {
-                    const formattedHtml = responseText
-                        .replace(/\*\s/g, '<li class="mb-2">')
-                        .replace(/-\s/g, '<li class="mb-2">')
-                        .replace(/\n/g, '</li>') + '</li>';
-                    simplifiedTermsContent.innerHTML = `<ul class="list-disc list-inside space-y-2">${formattedHtml}</ul>`;
-                }
-            });
-            
-            closeModalBtn.addEventListener('click', () => {
-                termsModal.classList.add('hidden');
-                termsModal.classList.remove('flex');
-            });
-            
-            termsModal.addEventListener('click', (e) => {
-                if (e.target === termsModal) {
-                    termsModal.classList.add('hidden');
-                    termsModal.classList.remove('flex');
-                }
             });
         });
     </script>
