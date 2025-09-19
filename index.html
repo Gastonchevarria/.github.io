@@ -1,46 +1,94 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Business Lab — Inicio</title>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tipografías -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Indica que la página soporta claro y oscuro -->
+  <meta name="color-scheme" content="light dark"><!-- MDN: color-scheme --> 
+  <meta name="theme-color" content="#0b1020"><!-- color sugerido para UI del navegador -->
+
   <style>
-    :root{
-      --bg:#0b1020; --surface:#0f172a; --border:#1f2937; --text:#e5e7eb; --muted:#94a3b8;
+    /* =================== Temas con CSS variables =================== */
+    :root { color-scheme: light dark; } /* permite que el UA ajuste formularios/scrollbars, etc. (MDN) */
+
+    /* Tema CLARO */
+    :root[data-theme="light"]{
+      --bg:#F8F7F4; --surface:#ffffff; --surface-2:#f8fafc; --border:#e5e7eb;
+      --text:#1f2937; --muted:#6b7280;
       --indigo:#4f46e5; --cyan:#06b6d4; --emerald:#34d399; --violet:#7c3aed;
     }
+
+    /* Tema OSCURO */
+    :root[data-theme="dark"]{
+      --bg:#0b1020; --surface:#0f172a; --surface-2:#111827; --border:#1f2937;
+      --text:#e5e7eb; --muted:#94a3b8;
+      --indigo:#4f46e5; --cyan:#06b6d4; --emerald:#34d399; --violet:#7c3aed;
+    }
+
     body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:1rem;padding:1.5rem;box-shadow:0 20px 40px -20px rgba(0,0,0,.45)}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:1rem;padding:1.5rem;box-shadow:0 20px 40px -20px rgba(0,0,0,.25)}
     .ai-grad{background:linear-gradient(90deg,var(--indigo),var(--cyan),var(--emerald));-webkit-background-clip:text;background-clip:text;color:transparent}
     .muted{color:var(--muted)}
-    .btn-grad{background:linear-gradient(90deg,var(--violet),var(--cyan));box-shadow:0 10px 24px -12px rgba(124,58,237,.65)}
-    .appbar{background:#0f172a;border-bottom:1px solid var(--border)}
+    .btn-grad{background:linear-gradient(90deg,var(--violet),var(--cyan));box-shadow:0 10px 24px -12px rgba(124,58,237,.45)}
+    .appbar{background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:saturate(1.2) blur(6px)}
+    .link:hover{color:var(--text)}
   </style>
+
+  <script>
+    // ========= Evitar "flicker": aplicar tema antes de pintar =========
+    (function() {
+      try {
+        const saved = localStorage.getItem('theme');       // 'light' | 'dark'
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // MDN
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (_) {}
+    })();
+  </script>
 </head>
 <body class="antialiased">
 
-  <!-- Barra superior con logo chico -->
-  <header class="appbar sticky top-0 z-50">
+  <!-- ======= HEADER fijo con logo y toggle ======= -->
+  <header class="fixed top-0 left-0 right-0 z-50 appbar">
     <div class="max-w-6xl mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center justify-between">
       <a href="index.html" class="inline-flex items-center gap-3">
         <img src="assets/logo.jpg" alt="AI Business Lab" width="160" height="48"
              class="h-7 sm:h-8 md:h-9 w-auto select-none" loading="eager" decoding="async">
         <span class="sr-only">AI Business Lab</span>
       </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm muted">
-        <a href="#hero" class="hover:text-white">Inicio</a>
-        <a href="#galeria" class="hover:text-white">Galería</a>
-        <a href="#video" class="hover:text-white">Video</a>
-        <a href="planes.html" class="hover:text-white">Planes</a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#hero" class="muted link">Inicio</a>
+        <a href="#galeria" class="muted link">Galería</a>
+        <a href="#video" class="muted link">Video</a>
+        <a href="planes.html" class="muted link">Planes</a>
+        <a href="planes.html#contact-card" class="muted link">Contacto</a>
+
+        <!-- Toggle de tema (switch accesible) -->
+        <button id="themeSwitch" type="button" role="switch" aria-checked="false"
+                aria-label="Cambiar entre modo claro y oscuro"
+                class="ml-2 inline-flex items-center justify-center w-10 h-10 rounded-full border"
+                style="border-color:var(--border);background:var(--surface-2)">
+          <!-- Ícono simple -->
+          <span id="themeIcon" aria-hidden="true">🌙</span>
+        </button>
       </nav>
     </div>
   </header>
+  <!-- Espaciador para compensar header fijo -->
+  <div class="h-14 md:h-16"></div>
 
-  <!-- HERO dividido -->
+  <!-- ======= HERO dividido ======= -->
   <section id="hero" class="relative overflow-hidden">
     <div class="absolute inset-0" aria-hidden="true"
          style="background: radial-gradient(1000px 600px at 0% 0%, rgba(79,70,229,.15), transparent 60%),
@@ -50,8 +98,8 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <!-- Marca + copy -->
         <div>
-          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs border"
-                style="border-color:rgba(148,163,184,.35); background:rgba(15,23,42,.6)">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs"
+                style="border:1px solid rgba(148,163,184,.35); background:var(--surface-2)">
             • AI Business Lab — contenido y automatización
           </span>
           <h1 class="mt-4 text-4xl md:text-5xl font-extrabold leading-tight">
@@ -74,7 +122,7 @@
     </div>
   </section>
 
-  <!-- Galería -->
+  <!-- ======= Galería ======= -->
   <section id="galeria" class="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <article class="card">
@@ -97,16 +145,16 @@
     </div>
   </section>
 
-  <!-- Video demo -->
+  <!-- ======= Video demo ======= -->
   <section id="video" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
     <div class="card">
       <div class="flex items-center justify-between mb-3">
         <h3 class="text-2xl font-extrabold ai-grad">De imágenes a video — Demo</h3>
         <span class="text-xs px-2 py-1 rounded-full"
-              style="border:1px solid rgba(6,182,212,.4); color:#67e8f9; background:rgba(6,182,212,.1)">Generado con IA</span>
+              style="border:1px solid rgba(6,182,212,.4); color:#067; background:rgba(6,182,212,.1)">Generado con IA</span>
       </div>
-      <video class="w-full rounded-lg border" style="border-color:var(--border)" controls
-             poster="assets/IMG_3951.JPG" preload="metadata">
+      <video class="w-full rounded-lg border" style="border-color:var(--border)"
+             controls poster="assets/IMG_3951.JPG" preload="metadata">
         <source src="assets/Generacion_de_video_de_gin_Quebracho.mp4" type="video/mp4">
         Tu navegador no soporta la etiqueta de video.
       </video>
@@ -117,5 +165,33 @@
   <footer class="text-center pb-10 muted">
     © 2025 AI Business Lab. Todos los derechos reservados.
   </footer>
+
+  <script>
+    // ======= Toggle claro/oscuro accesible =======
+    const btn = document.getElementById('themeSwitch');
+    const icon = document.getElementById('themeIcon');
+
+    function apply(theme){
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const isDark = theme === 'dark';
+      btn.setAttribute('aria-checked', String(isDark));
+      icon.textContent = isDark ? '☀️' : '🌙';
+    }
+
+    // Estado inicial según atributo en <html> (ya seteado arriba)
+    apply(document.documentElement.getAttribute('data-theme') || 'light');
+
+    btn.addEventListener('click', () => {
+      const next = (document.documentElement.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+      apply(next);
+    });
+
+    // También respetamos cambios del SO en tiempo real si el usuario no fijó preferencia manual
+    const mq = window.matchMedia('(prefers-color-scheme: dark)'); // web.dev + MDN
+    mq.addEventListener?.('change', e => {
+      if (!localStorage.getItem('theme')) apply(e.matches ? 'dark' : 'light');
+    });
+  </script>
 </body>
 </html>
