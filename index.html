@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO básico -->
+  <title data-edit="seo.title"><!-- EDIT: seo-title -->AI Business Lab — Contenido y Automatización con IA</title>
+  <meta name="description" content="Creamos imágenes, videos y automatizaciones para tu negocio. Branding, redes y agentes conversacionales." data-edit="seo.description"><!-- EDIT: seo-description -->
+  <link rel="canonical" href="https://gastonchevarria.github.io/" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Business Lab" data-edit="og.title"><!-- EDIT: og-title -->
+  <meta property="og:description" content="Contenido y automatización con IA para tu negocio." data-edit="og.description"><!-- EDIT: og-description -->
+  <meta property="og:url" content="https://gastonchevarria.github.io/">
+  <meta property="og:image" content="assets/ai-1.jpg" data-edit="og.image"><!-- EDIT: og-image -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Tema para navegador -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0b1220">
+
+  <!-- Favicon opcional (usa tu logo si querés) -->
+  <!-- <link rel="icon" href="assets/logo.jpg"> -->
+
+  <!-- ======================= EDIT-GUIDE: Índice de anclas =======================
+       data-edit disponibles (buscá estos valores para editar rápido):
+       seo.title, seo.description, og.title, og.description, og.image
+       nav.brand, nav.link.inicio, nav.link.galeria, nav.link.video, nav.link.planes, nav.link.contacto
+       hero.badge, hero.title, hero.subtitle, hero.cta1.text, hero.cta1.href, hero.cta2.text, hero.cta2.href, hero.image
+       cards.1.title, cards.1.text, cards.1.image
+       cards.2.title, cards.2.text, cards.2.image
+       cards.3.title, cards.3.text
+       video.title, video.caption, video.poster, video.src
+       planes.title, planes.subtitle
+       plan.pro.price, plan.pro.items
+       plan.ultra.badge, plan.ultra.price, plan.ultra.items
+       contacto.name, contacto.email, contacto.phone, contacto.cta
+       footer.copy
+  ============================================================================== -->
+
+  <style>
+    /* ======= Diseño base (mobile-first) ======= */
+    :root[data-theme="dark"]{
+      --bg:#0b1220; --surface:#0f172a; --surface-2:#111827; --border:#1f2737;
+      --txt:#e5e7eb; --muted:#9aa3b2; --primary:#0ea5e9; --accent:#7c3aed; --ok:#34d399;
+      --ring: 2px solid #22d3ee;
+    }
+    :root[data-theme="light"]{
+      --bg:#f6f7fb; --surface:#ffffff; --surface-2:#f3f4f6; --border:#e5e7eb;
+      --txt:#0f172a; --muted:#475569; --primary:#0ea5e9; --accent:#7c3aed; --ok:#059669;
+      --ring: 2px solid #0ea5e9;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;background:var(--bg);color:var(--txt);line-height:1.5}
+    img,video{max-width:100%;height:auto;display:block}
+    a{color:var(--primary);text-decoration:none}
+    a:focus,button:focus{outline:var(--ring);outline-offset:2px}
+    .container{width:100%;max-width:1120px;margin:0 auto;padding:0 1rem}
+    .btn{display:inline-flex;gap:.5rem;align-items:center;justify-content:center;padding:.75rem 1rem;border-radius:.75rem;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--primary));color:#fff;border:0}
+    .btn-outline{border:1px solid var(--border);color:var(--txt);background:transparent}
+    .muted{color:var(--muted)}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:1rem;padding:1.25rem;box-shadow:0 16px 40px -20px rgba(0,0,0,.35)}
+    .grid{display:grid;gap:1rem}
+    .grid-2{grid-template-columns:1fr}
+    .grid-3{grid-template-columns:1fr}
+    @media (min-width:768px){.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}}
+    header.appbar{position:fixed;inset-block-start:0;inset-inline:0;background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:saturate(1.2) blur(6px);z-index:50}
+    .nav{display:flex;gap:1rem;align-items:center}
+    .nav a{color:var(--muted)}
+    .nav a:hover{color:var(--txt)}
+    .skip{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:1rem;top:1rem;width:auto;height:auto;background:var(--surface-2);padding:.5rem .75rem;border-radius:.5rem;border:1px solid var(--border)}
+    .pill{display:inline-flex;gap:.5rem;align-items:center;border:1px solid rgba(148,163,184,.35);background:var(--surface-2);border-radius:999px;padding:.35rem .6rem;font-size:.8rem}
+    .ai-grad{background:linear-gradient(90deg,#4f46e5,#0ea5e9,#34d399);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+    /* Planes */
+    .plan{border:2px solid var(--border);transition:.25s}
+    .plan.active{border-color:rgba(124,58,237,.6);box-shadow:0 0 40px -10px rgba(124,58,237,.45),0 0 24px -8px rgba(14,165,233,.35);transform:translateY(-4px)}
+    .price{font-size:2.2rem;font-weight:800}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border)}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">Saltar al contenido</a>
+
+  <!-- ======= HEADER ======= -->
+  <header class="appbar" role="banner" aria-label="Barra de navegación">
+    <div class="container" style="height:64px;display:flex;align-items:center;justify-content:space-between">
+      <a href="#hero" aria-label="AI Business Lab" data-edit="nav.brand"><!-- EDIT: nav-brand -->
+        <img src="assets/logo.jpg" alt="AI Business Lab" width="160" height="48" decoding="async" loading="eager">
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#hero" data-edit="nav.link.inicio"><!-- EDIT: nav-inicio -->Inicio</a>
+        <a href="#galeria" data-edit="nav.link.galeria"><!-- EDIT: nav-galeria -->Galería</a>
+        <a href="#video" data-edit="nav.link.video"><!-- EDIT: nav-video -->Video</a>
+        <a href="#planes" data-edit="nav.link.planes"><!-- EDIT: nav-planes -->Planes</a>
+        <a href="#contacto" data-edit="nav.link.contacto"><!-- EDIT: nav-contacto -->Contacto</a>
+        <button id="themeSwitch" type="button" role="switch" aria-checked="true" aria-label="Cambiar entre modo claro y oscuro" title="Tema" class="btn btn-outline" style="padding:.4rem .6rem">🌙</button>
+      </nav>
+    </div>
+  </header>
+  <div aria-hidden="true" style="height:64px"></div>
+
+  <main id="main">
+    <!-- ======= HERO ======= -->
+    <section id="hero" class="container" aria-labelledby="hero-title" style="padding:3rem 1rem 2rem;position:relative;overflow:hidden">
+      <div aria-hidden="true" style="position:absolute;inset:0;background:
+           radial-gradient(1000px 600px at 0% 0%, rgba(79,70,229,.15), transparent 60%),
+           radial-gradient(1000px 600px at 100% 100%, rgba(14,165,233,.12), transparent 60%);
+           z-index:-1"></div>
+
+      <div class="grid grid-2" style="gap:1.5rem">
+        <div>
+          <span class="pill" data-edit="hero.badge"><!-- EDIT: hero-badge -->• AI Business Lab — contenido y automatización</span>
+          <h1 id="hero-title" class="ai-grad" style="font-size:clamp(2rem,3.2vw,3rem);margin:.75rem 0 .5rem" data-edit="hero.title"><!-- EDIT: hero-title -->
+            Crea contenido <b>profesional con IA</b> para tu negocio
+          </h1>
+          <p class="muted" style="font-size:1.1rem;max-width:48ch" data-edit="hero.subtitle"><!-- EDIT: hero-subtitle -->
+            Transformamos ideas en imágenes y videos listos para publicar. Automatización de contenidos, branding y agentes conversacionales.
+          </p>
+          <div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap">
+            <a class="btn btn-primary" href="#planes" data-edit="hero.cta1.href" aria-describedby="hero-title"><!-- EDIT: hero-cta1-href -->
+              <span data-edit="hero.cta1.text"><!-- EDIT: hero-cta1-text -->Ver planes</span>
+            </a>
+            <a class="btn btn-outline" href="#video" data-edit="hero.cta2.href"><!-- EDIT: hero-cta2-href -->
+              <span data-edit="hero.cta2.text"><!-- EDIT: hero-cta2-text -->Ver demo</span>
+            </a>
+          </div>
+        </div>
+        <figure class="card" style="padding:0;overflow:hidden">
+          <img src="assets/ai-1.jpg" width="1200" height="900" alt="Generación de contenido con IA" loading="lazy" data-edit="hero.image"><!-- EDIT: hero-image -->
+        </figure>
+      </div>
+    </section>
+
+    <!-- ======= GALERÍA / SERVICIOS ======= -->
+    <section id="galeria" class="container" aria-labelledby="galeria-title" style="padding:2rem 0 2.5rem">
+      <h2 id="galeria-title" style="font-size:1.8rem;margin:0 0 1rem" class="ai-grad">Servicios</h2>
+      <div class="grid grid-3">
+        <article class="card">
+          <h3 data-edit="cards.1.title"><!-- EDIT: card1-title -->Imágenes con IA</h3>
+          <p class="muted" data-edit="cards.1.text"><!-- EDIT: card1-text -->Productos, lifestyle, flyers y más en minutos.</p>
+          <img class="card" style="padding:0;margin-top:.75rem" src="assets/ai-ejemplo-1.JPG" width="1200" height="900" alt="Imágenes IA" loading="lazy" data-edit="cards.1.image"><!-- EDIT: card1-image -->
+        </article>
+        <article class="card">
+          <h3 data-edit="cards.2.title"><!-- EDIT: card2-title -->Contenido para Redes</h3>
+          <p class="muted" data-edit="cards.2.text"><!-- EDIT: card2-text -->Piezas optimizadas para Instagram y TikTok.</p>
+          <img class="card" style="padding:0;margin-top:.75rem" src="assets/content-1.JPG" width="1200" height="900" alt="Creación de contenido" loading="lazy" data-edit="cards.2.image"><!-- EDIT: card2-image -->
+        </article>
+        <article class="card">
+          <h3 data-edit="cards.3.title"><!-- EDIT: card3-title -->Automatización</h3>
+          <p class="muted" data-edit="cards.3.text"><!-- EDIT: card3-text -->Agentes que publican, responden y reportan por vos.</p>
+          <div class="card" style="background:var(--surface-2);margin-top:.75rem">Incluye chatbot y flujos, calendario editorial y publicaciones automáticas.</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======= VIDEO ======= -->
+    <section id="video" class="container" aria-labelledby="video-title" style="padding:0 0 2.5rem">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.75rem">
+          <h2 id="video-title" class="ai-grad" data-edit="video.title"><!-- EDIT: video-title -->De imágenes a video — Demo</h2>
+          <span class="pill">Generado con IA</span>
+        </div>
+        <video class="card" style="padding:0" controls preload="metadata" poster="assets/IMG_3951.JPG" width="1280" height="720" data-edit="video.poster"><!-- EDIT: video-poster -->
+          <source src="assets/Generacion_de_video_de_gin_Quebracho.mp4" type="video/mp4" data-edit="video.src"><!-- EDIT: video-src -->
+          Tu navegador no soporta la etiqueta de video.
+        </video>
+        <p class="muted" style="margin:.5rem 0 0" data-edit="video.caption"><!-- EDIT: video-caption -->A partir de fotos del producto, generamos un video promocional en minutos.</p>
+      </div>
+    </section>
+
+    <!-- ======= PLANES (en la misma página) ======= -->
+    <section id="planes" class="container" aria-labelledby="planes-title" style="padding:0 0 2.5rem">
+      <div class="card" style="background:transparent;border-color:transparent;box-shadow:none;padding:0">
+        <h2 id="planes-title" class="ai-grad" style="font-size:1.8rem" data-edit="planes.title"><!-- EDIT: planes-title -->Nuestros Planes</h2>
+        <p class="muted" data-edit="planes.subtitle"><!-- EDIT: planes-subtitle -->Elegí un plan. Podés tocar una tarjeta para resaltarla.</p>
+      </div>
+
+      <div class="grid grid-3" style="margin-top:1rem">
+        <article class="card plan" id="plan-pro" tabindex="0" role="button" aria-pressed="false" aria-label="Plan Pro">
+          <h3>Plan Pro</h3>
+          <p class="price" data-edit="plan.pro.price"><!-- EDIT: plan-pro-price -->$199 <span class="muted" style="font-weight:600">/mes</span></p>
+          <ul class="muted" style="padding-left:1rem" data-edit="plan.pro.items"><!-- EDIT: plan-pro-items -->
+            <li>✓ Web con carrito</li>
+            <li>✓ 15 videos/mes IA</li>
+            <li>✓ 30 imágenes/mes IA</li>
+            <li>✓ Instagram Negocios</li>
+            <li>✓ Agente de Contenido (Telegram)</li>
+            <li class="muted">✗ Agente Conversacional (WhatsApp + IG)</li>
+          </ul>
+        </article>
+
+        <article class="card plan active" id="plan-ultra" tabindex="0" role="button" aria-pressed="true" aria-label="Plan Ultra (popular)">
+          <div class="pill" style="margin-bottom:.4rem" data-edit="plan.ultra.badge"><!-- EDIT: plan-ultra-badge -->Popular</div>
+          <h3>Plan Ultra</h3>
+          <p class="price" data-edit="plan.ultra.price"><!-- EDIT: plan-ultra-price -->$299 <span class="muted" style="font-weight:600">/mes</span></p>
+          <ul class="muted" style="padding-left:1rem" data-edit="plan.ultra.items"><!-- EDIT: plan-ultra-items -->
+            <li>✓ Web con carrito</li>
+            <li>✓ 20 videos/mes IA</li>
+            <li>✓ 50 imágenes/mes IA</li>
+            <li>✓ Instagram Negocios</li>
+            <li>✓ Agente de Contenido (Telegram)</li>
+            <li>✓ Agente Conversacional (WhatsApp + IG)</li>
+          </ul>
+        </article>
+
+        <article id="contacto" class="card">
+          <h3 class="ai-grad">Contacto</h3>
+          <p><strong>Representante:</strong> <span data-edit="contacto.name"><!-- EDIT: contacto-name -->Gastón Chevarria</span></p>
+          <p><strong>Email:</strong> <a href="mailto:gaston_ch27@hotmail.com" class="underline" data-edit="contacto.email"><!-- EDIT: contacto-email -->gaston_ch27@hotmail.com</a></p>
+          <p><strong>Teléfono:</strong> <span data-edit="contacto.phone"><!-- EDIT: contacto-phone -->+54 9 11 5619-5680</span></p>
+          <a class="btn btn-primary" href="mailto:gaston_ch27@hotmail.com?subject=Quiero%20info%20AI%20Business%20Lab" data-edit="contacto.cta"><!-- EDIT: contacto-cta -->Escribime ahora</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container muted" style="padding:2rem 0" role="contentinfo">
+    <p data-edit="footer.copy"><!-- EDIT: footer-copy -->© 2025 AI Business Lab — Hecho con IA</p>
+  </footer>
+
+  <script>
+    // ====== Tema claro/oscuro accesible ======
+    (function(){
+      try{
+        const root=document.documentElement;
+        const btn=document.getElementById('themeSwitch');
+        const saved=localStorage.getItem('theme');
+        const prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const start=saved || (prefersDark?'dark':'light');
+        apply(start);
+
+        btn.addEventListener('click',()=>apply(root.getAttribute('data-theme')==='dark'?'light':'dark'));
+        function apply(mode){
+          root.setAttribute('data-theme',mode);
+          localStorage.setItem('theme',mode);
+          btn.setAttribute('aria-checked', String(mode==='dark'));
+          btn.textContent = mode==='dark' ? '☀️' : '🌙';
+        }
+        // Respeta cambios del SO si no hay preferencia guardada
+        const mq=window.matchMedia('(prefers-color-scheme: dark)');
+        mq.addEventListener?.('change', e => { if(!localStorage.getItem('theme')) apply(e.matches?'dark':'light'); });
+      }catch(e){}
+    })();
+
+    // ====== Interacción de tarjetas de planes (clic o Enter/Espacio) ======
+    (function(){
+      const cards=[...document.querySelectorAll('.plan')];
+      function activate(el){
+        cards.forEach(c=>{c.classList.remove('active');c.setAttribute('aria-pressed','false')});
+        el.classList.add('active'); el.setAttribute('aria-pressed','true');
+      }
+      cards.forEach(c=>{
+        c.addEventListener('click',()=>activate(c));
+        c.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); activate(c);} });
+      });
+    })();
+  </script>
+</body>
+</html>
