@@ -31,130 +31,121 @@
     /* Tema OSCURO */
     :root[data-theme="dark"]{
       --bg:#0b1020; --surface:#0f172a; --surface-2:#111827; --border:#1f2937;
-      --text:#e5e7eb; --muted:#9ca3af;
-      --indigo:#818cf8; --cyan:#22d3ee; --emerald:#6ee7b7; --violet:#a78bfa;
+      --text:#e5e7eb; --muted:#94a3b8;
+      --indigo:#4f46e5; --cyan:#06b6d4; --emerald:#34d399; --violet:#7c3aed;
     }
 
-    /* ------------------- Estilos base ------------------- */
-    html,body{scroll-behavior:smooth}
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-      background:var(--bg); color:var(--text);
-    }
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px}
-    .shadow-soft{box-shadow:0 10px 24px -12px rgba(0,0,0,.25)}
+    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:1rem;padding:1.5rem;box-shadow:0 20px 40px -20px rgba(0,0,0,.25)}
     .ai-grad{background:linear-gradient(90deg,var(--indigo),var(--cyan),var(--emerald));-webkit-background-clip:text;background-clip:text;color:transparent}
     .muted{color:var(--muted)}
+    .btn-grad{background:linear-gradient(90deg,var(--violet),var(--cyan));box-shadow:0 10px 24px -12px rgba(124,58,237,.45)}
     .appbar{background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:saturate(1.2) blur(6px)}
-    a:focus,button:focus{outline:3px solid var(--indigo);outline-offset:3px;border-radius:8px}
-
-    /* Galería/Servicios (ya OK, sin cambios de rutas) */
-    .svc-img{width:100%;height:18rem;object-fit:cover}
-    @media (min-width:640px){.svc-img{height:20rem}}
-    @media (min-width:768px){.svc-img{height:24rem}}
+    .link:hover{color:var(--text)}
   </style>
 
   <script>
-    // persistencia de tema (claro/oscuro)
-    (function(){try{
-      const saved=localStorage.getItem('theme');
-      const prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.dataset.theme = saved || (prefersDark?'dark':'light');
-    }catch(e){}})();
+    // ========= Evitar "flicker": aplicar tema antes de pintar =========
+    (function() {
+      try {
+        const saved = localStorage.getItem('theme');       // 'light' | 'dark'
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // MDN
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (_) {}
+    })();
   </script>
 </head>
-
 <body class="antialiased">
 
-  <!-- Header -->
+  <!-- ======= HEADER fijo con logo y toggle ======= -->
   <header class="fixed top-0 left-0 right-0 z-50 appbar">
     <div class="max-w-6xl mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center justify-between">
-      <a href="#hero" class="inline-flex items-center gap-3">
+      <a href="index.html" class="inline-flex items-center gap-3">
         <img src="assets/logo.jpg" alt="AI Business Lab" width="160" height="48"
-             class="h-9 sm:h-10 md:h-12 w-auto select-none" loading="eager" decoding="async">
+             class="h-7 sm:h-8 md:h-9 w-auto select-none" loading="eager" decoding="async">
         <span class="sr-only">AI Business Lab</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#hero" class="muted">Inicio</a>
-        <a href="#galeria" class="muted">Galería</a>
-        <a href="#video" class="muted">Video</a>
-        <a href="planes.html" class="muted">Planes</a>
-        <a href="planes.html#contact-card" class="muted">Contacto</a>
+        <a href="#hero" class="muted link">Inicio</a>
+        <a href="#galeria" class="muted link">Galería</a>
+        <a href="#video" class="muted link">Video</a>
+        <a href="planes.html" class="muted link">Planes</a>
+        <a href="planes.html#contact-card" class="muted link">Contacto</a>
 
+        <!-- Toggle de tema (switch accesible) -->
         <button id="themeSwitch" type="button" role="switch" aria-checked="false"
-                aria-label="Cambiar tema"
+                aria-label="Cambiar entre modo claro y oscuro"
                 class="ml-2 inline-flex items-center justify-center w-10 h-10 rounded-full border"
                 style="border-color:var(--border);background:var(--surface-2)">
+          <!-- Ícono simple -->
           <span id="themeIcon" aria-hidden="true">🌙</span>
         </button>
       </nav>
-
-      <details class="md:hidden">
-        <summary class="list-none cursor-pointer px-3 py-2 border rounded-lg" style="border-color:var(--border)">Menú</summary>
-        <div class="absolute right-4 mt-2 p-3 border rounded-lg bg-[var(--surface)]" style="border-color:var(--border)">
-          <a class="block py-1" href="#hero">Inicio</a>
-          <a class="block py-1" href="#galeria">Galería</a>
-          <a class="block py-1" href="#video">Video</a>
-          <a class="block py-1" href="planes.html">Planes</a>
-          <a class="block py-1" href="planes.html#contact-card">Contacto</a>
-          <button id="themeSwitch2" class="mt-2 w-full border rounded-lg py-2">Tema</button>
-        </div>
-      </details>
     </div>
   </header>
+  <!-- Espaciador para compensar header fijo -->
+  <div class="h-14 md:h-16"></div>
 
-  <!-- Hero -->
-  <section id="hero" class="pt-20 md:pt-24">
-    <div class="max-w-6xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
-          Impulsá tu negocio con <span class="ai-grad">IA generativa</span>
-        </h1>
-        <p class="mt-3 text-lg muted">Creamos imágenes, videos y contenido optimizado para redes con flujos de IA y automatización.</p>
+  <!-- ======= HERO dividido ======= -->
+  <section id="hero" class="relative overflow-hidden">
+    <div class="absolute inset-0" aria-hidden="true"
+         style="background: radial-gradient(1000px 600px at 0% 0%, rgba(79,70,229,.15), transparent 60%),
+                          radial-gradient(1000px 600px at 100% 100%, rgba(6,182,212,.12), transparent 60%);"></div>
 
-        <div class="mt-6 flex gap-3">
-          <a href="planes.html" class="px-5 py-3 rounded-lg font-semibold text-white" style="background:var(--indigo)">Ver planes</a>
-          <a href="planes.html#contact-card" class="px-5 py-3 rounded-lg font-semibold border" style="border-color:var(--border)">Contactar</a>
+    <div class="relative max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <!-- Marca + copy -->
+        <div>
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs"
+                style="border:1px solid rgba(148,163,184,.35); background:var(--surface-2)">
+            • AI Business Lab — contenido y automatización
+          </span>
+          <h1 class="mt-4 text-4xl md:text-5xl font-extrabold leading-tight">
+            Crea contenido <span class="ai-grad">profesional con IA</span> para tu negocio
+          </h1>
+          <p class="mt-3 text-lg muted max-w-xl">
+            Transformamos ideas en imágenes y videos listos para publicar. Automatización de contenidos, branding y agentes conversacionales.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="planes.html" class="btn-grad text-white px-5 py-2.5 rounded-lg font-semibold">Ver planes</a>
+            <a href="#video" class="px-5 py-2.5 rounded-lg font-semibold border" style="border-color:var(--border)">Ver demo</a>
+          </div>
         </div>
-      </div>
 
-      <div class="shadow-soft rounded-xl overflow-hidden border aspect-[16/9]" style="border-color:var(--border)">
-        <img src="assets/ai-1.jpg" alt="Generación de contenido con IA" class="w-full h-full object-cover">
+        <!-- Imagen destacada -->
+        <div class="rounded-2xl overflow-hidden border" style="border-color:var(--border)">
+          <img src="assets/ai-1.jpg" alt="Generación de contenido con IA" class="w-full h-full object-cover">
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Galería / Servicios -->
+  <!-- ======= Galería ======= -->
   <section id="galeria" class="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <article class="card">
         <h3 class="text-xl font-bold">Imágenes con IA</h3>
         <p class="mt-1 muted">Productos, lifestyle, flyers y más en minutos.</p>
-        <img src="assets/ai-2.jpg" alt="Imágenes IA" class="mt-4 rounded-lg border svc-img" style="border-color:var(--border)">
+        <img src="assets/ai-2.jpg" alt="Imágenes IA" class="mt-4 rounded-lg border" style="border-color:var(--border)">
       </article>
-
       <article class="card">
         <h3 class="text-xl font-bold">Contenido para Redes</h3>
         <p class="mt-1 muted">Piezas optimizadas para Instagram y TikTok.</p>
-        <img src="assets/content-1.jpg" alt="Creación de contenido para redes" class="mt-4 rounded-lg border svc-img" style="border-color:var(--border)">
+        <img src="assets/content-1.jpg" alt="Creación de contenido" class="mt-4 rounded-lg border" style="border-color:var(--border)">
       </article>
-
       <article class="card">
         <h3 class="text-xl font-bold">Automatización</h3>
         <p class="mt-1 muted">Agentes que publican y responden por vos.</p>
-        <div class="mt-4 p-4 rounded-lg border text-sm" style="border-color:var(--border)">
-          <ul class="list-disc pl-5 space-y-1 muted">
-            <li>Bots para responder consultas</li>
-            <li>Programación de publicaciones</li>
-            <li>Integración con tu CRM</li>
-          </ul>
+        <div class="mt-4 p-4 rounded-lg border text-sm muted" style="border-color:var(--border)">
+          Incluye chatbot y flujos, calendario editorial, publicación automática y reportes.
         </div>
       </article>
     </div>
   </section>
 
-  <!-- Video (sin tocar) -->
+  <!-- ======= Video demo ======= -->
   <section id="video" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
     <div class="card">
       <div class="flex items-center justify-between mb-3">
@@ -167,32 +158,41 @@
         <source src="assets/Generacion_de_video_de_gin_Quebracho.mp4" type="video/mp4">
         Tu navegador no soporta la etiqueta de video.
       </video>
-      <p class="mt-3 text-sm muted">A partir de fotos del producto, generamos un video impactante en minutos.</p>
+      <p class="mt-3 text-sm muted">A partir de fotos del producto, generamos un video promocional en minutos.</p>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t py-8 text-center muted" style="border-color:var(--border)">
-    <p>© <span id="year"></span> AI Business Lab — Hecho con IA</p>
+  <footer class="text-center pb-10 muted">
+    © 2025 AI Business Lab. Todos los derechos reservados.
   </footer>
 
   <script>
-    // Año en footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // ======= Toggle claro/oscuro accesible =======
+    const btn = document.getElementById('themeSwitch');
+    const icon = document.getElementById('themeIcon');
 
-    // Toggle tema
-    function toggleTheme(){
-      const root=document.documentElement;
-      const cur=root.dataset.theme==='dark'?'dark':'light';
-      const next=cur==='dark'?'light':'dark';
-      root.dataset.theme=next;
-      try{localStorage.setItem('theme',next)}catch(e){}
-      const on=next==='dark';
-      document.getElementById('themeSwitch').setAttribute('aria-checked',on);
-      document.getElementById('themeIcon').textContent = on?'☀️':'🌙';
+    function apply(theme){
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const isDark = theme === 'dark';
+      btn.setAttribute('aria-checked', String(isDark));
+      icon.textContent = isDark ? '☀️' : '🌙';
     }
-    document.getElementById('themeSwitch').addEventListener('click',toggleTheme);
-    document.getElementById('themeSwitch2').addEventListener('click',toggleTheme);
+
+    // Estado inicial según atributo en <html> (ya seteado arriba)
+    apply(document.documentElement.getAttribute('data-theme') || 'light');
+
+    btn.addEventListener('click', () => {
+      const next = (document.documentElement.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+      apply(next);
+    });
+
+    // También respetamos cambios del SO en tiempo real si el usuario no fijó preferencia manual
+    const mq = window.matchMedia('(prefers-color-scheme: dark)'); // web.dev + MDN
+    mq.addEventListener?.('change', e => {
+      if (!localStorage.getItem('theme')) apply(e.matches ? 'dark' : 'light');
+    });
   </script>
 </body>
 </html>
+
