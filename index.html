@@ -22,7 +22,7 @@
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#0b1220">
 
-  <!-- Favicon opcional (usa tu logo si querés) -->
+  <!-- Favicon opcional -->
   <!-- <link rel="icon" href="assets/logo.jpg"> -->
 
   <!-- ======================= EDIT-GUIDE: Índice de anclas =======================
@@ -36,7 +36,7 @@
        video.title, video.caption, video.poster, video.src
        planes.title, planes.subtitle
        plan.pro.price, plan.pro.items
-       plan.ultra.badge, plan.ultra.price, plan.ultra.items
+       plan.ultra.price, plan.ultra.items
        contacto.name, contacto.email, contacto.phone, contacto.cta
        footer.copy
   ============================================================================== -->
@@ -80,7 +80,8 @@
 
     /* Planes */
     .plan{border:2px solid var(--border);transition:.25s}
-    .plan.active{border-color:rgba(124,58,237,.6);box-shadow:0 0 40px -10px rgba(124,58,237,.45),0 0 24px -8px rgba(14,165,233,.35);transform:translateY(-4px)}
+    /* Quitamos translateY para que los planes queden alineados en la misma línea */
+    .plan.active{border-color:rgba(124,58,237,.6);box-shadow:0 0 40px -10px rgba(124,58,237,.45),0 0 24px -8px rgba(14,165,233,.35)}
     .price{font-size:2.2rem;font-weight:800}
 
     /* Footer */
@@ -177,14 +178,14 @@
       </div>
     </section>
 
-    <!-- ======= PLANES (en la misma página) ======= -->
+    <!-- ======= PLANES (Popular removido) ======= -->
     <section id="planes" class="container" aria-labelledby="planes-title" style="padding:0 0 2.5rem">
       <div class="card" style="background:transparent;border-color:transparent;box-shadow:none;padding:0">
         <h2 id="planes-title" class="ai-grad" style="font-size:1.8rem" data-edit="planes.title"><!-- EDIT: planes-title -->Nuestros Planes</h2>
         <p class="muted" data-edit="planes.subtitle"><!-- EDIT: planes-subtitle -->Elegí un plan. Podés tocar una tarjeta para resaltarla.</p>
       </div>
 
-      <div class="grid grid-3" style="margin-top:1rem">
+      <div class="grid grid-3" style="margin-top:1rem;align-items:stretch">
         <article class="card plan" id="plan-pro" tabindex="0" role="button" aria-pressed="false" aria-label="Plan Pro">
           <h3>Plan Pro</h3>
           <p class="price" data-edit="plan.pro.price"><!-- EDIT: plan-pro-price -->$199 <span class="muted" style="font-weight:600">/mes</span></p>
@@ -198,8 +199,7 @@
           </ul>
         </article>
 
-        <article class="card plan active" id="plan-ultra" tabindex="0" role="button" aria-pressed="true" aria-label="Plan Ultra (popular)">
-          <div class="pill" style="margin-bottom:.4rem" data-edit="plan.ultra.badge"><!-- EDIT: plan-ultra-badge -->Popular</div>
+        <article class="card plan active" id="plan-ultra" tabindex="0" role="button" aria-pressed="true" aria-label="Plan Ultra">
           <h3>Plan Ultra</h3>
           <p class="price" data-edit="plan.ultra.price"><!-- EDIT: plan-ultra-price -->$299 <span class="muted" style="font-weight:600">/mes</span></p>
           <ul class="muted" style="padding-left:1rem" data-edit="plan.ultra.items"><!-- EDIT: plan-ultra-items -->
@@ -245,7 +245,7 @@
           btn.setAttribute('aria-checked', String(mode==='dark'));
           btn.textContent = mode==='dark' ? '☀️' : '🌙';
         }
-        // Respeta cambios del SO si no hay preferencia guardada
+        // Cambios del SO si no hay preferencia guardada
         const mq=window.matchMedia('(prefers-color-scheme: dark)');
         mq.addEventListener?.('change', e => { if(!localStorage.getItem('theme')) apply(e.matches?'dark':'light'); });
       }catch(e){}
