@@ -14,42 +14,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <!-- Indica que la página soporta claro y oscuro -->
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#0b1020">
+  <meta name="color-scheme" content="light dark"><!-- MDN: color-scheme --> 
+  <meta name="theme-color" content="#0b1020"><!-- color sugerido para UI del navegador -->
 
   <style>
-    :root { color-scheme: light dark; }
+    /* =================== Temas con CSS variables =================== */
+    :root { color-scheme: light dark; } /* permite que el UA ajuste formularios/scrollbars, etc. (MDN) */
 
+    /* Tema CLARO */
     :root[data-theme="light"]{
       --bg:#F8F7F4; --surface:#ffffff; --surface-2:#f8fafc; --border:#e5e7eb;
       --text:#1f2937; --muted:#6b7280;
       --indigo:#4f46e5; --cyan:#06b6d4; --emerald:#34d399; --violet:#7c3aed;
     }
+
+    /* Tema OSCURO */
     :root[data-theme="dark"]{
       --bg:#0b1020; --surface:#0f172a; --surface-2:#111827; --border:#1f2937;
       --text:#e5e7eb; --muted:#9ca3af;
       --indigo:#818cf8; --cyan:#22d3ee; --emerald:#6ee7b7; --violet:#a78bfa;
     }
 
-    /* Ajustes básicos */
+    /* ------------------- Estilos base ------------------- */
     html,body{scroll-behavior:smooth}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:var(--bg);color:var(--text)}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      background:var(--bg); color:var(--text);
+    }
     .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px}
     .shadow-soft{box-shadow:0 10px 24px -12px rgba(0,0,0,.25)}
     .ai-grad{background:linear-gradient(90deg,var(--indigo),var(--cyan),var(--emerald));-webkit-background-clip:text;background-clip:text;color:transparent}
     .muted{color:var(--muted)}
     .appbar{background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:saturate(1.2) blur(6px)}
-
-    /* Mejora de foco accesible */
     a:focus,button:focus{outline:3px solid var(--indigo);outline-offset:3px;border-radius:8px}
 
-    /* Servicios: hacer imágenes más grandes y consistentes */
-    .svc-img{width:100%;height:18rem;object-fit:cover}          /* h-72 */
-    @media (min-width:640px){.svc-img{height:20rem}}            /* sm:h-80 */
-    @media (min-width:768px){.svc-img{height:24rem}}            /* md:h-96 */
+    /* Galería/Servicios (ya OK, sin cambios de rutas) */
+    .svc-img{width:100%;height:18rem;object-fit:cover}
+    @media (min-width:640px){.svc-img{height:20rem}}
+    @media (min-width:768px){.svc-img{height:24rem}}
   </style>
 
   <script>
+    // persistencia de tema (claro/oscuro)
     (function(){try{
       const saved=localStorage.getItem('theme');
       const prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -60,32 +66,30 @@
 
 <body class="antialiased">
 
-  <!-- Header fijo con menú + switch -->
+  <!-- Header -->
   <header class="fixed top-0 left-0 right-0 z-50 appbar">
     <div class="max-w-6xl mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center justify-between">
       <a href="#hero" class="inline-flex items-center gap-3">
         <img src="assets/logo.jpg" alt="AI Business Lab" width="160" height="48"
-             class="h-7 sm:h-8 md:h-9 w-auto select-none" loading="eager" decoding="async">
+             class="h-9 sm:h-10 md:h-12 w-auto select-none" loading="eager" decoding="async">
         <span class="sr-only">AI Business Lab</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#hero" class="muted link">Inicio</a>
-        <a href="#galeria" class="muted link">Galería</a>
-        <a href="#video" class="muted link">Video</a>
-        <a href="planes.html" class="muted link">Planes</a>
-        <a href="planes.html#contact-card" class="muted link">Contacto</a>
+        <a href="#hero" class="muted">Inicio</a>
+        <a href="#galeria" class="muted">Galería</a>
+        <a href="#video" class="muted">Video</a>
+        <a href="planes.html" class="muted">Planes</a>
+        <a href="planes.html#contact-card" class="muted">Contacto</a>
 
-        <!-- Toggle de tema (switch accesible) -->
         <button id="themeSwitch" type="button" role="switch" aria-checked="false"
-                aria-label="Cambiar entre modo claro y oscuro"
+                aria-label="Cambiar tema"
                 class="ml-2 inline-flex items-center justify-center w-10 h-10 rounded-full border"
                 style="border-color:var(--border);background:var(--surface-2)">
           <span id="themeIcon" aria-hidden="true">🌙</span>
         </button>
       </nav>
 
-      <!-- Menu móvil -->
       <details class="md:hidden">
         <summary class="list-none cursor-pointer px-3 py-2 border rounded-lg" style="border-color:var(--border)">Menú</summary>
         <div class="absolute right-4 mt-2 p-3 border rounded-lg bg-[var(--surface)]" style="border-color:var(--border)">
@@ -100,7 +104,7 @@
     </div>
   </header>
 
-  <!-- ======= Hero ======= -->
+  <!-- Hero -->
   <section id="hero" class="pt-20 md:pt-24">
     <div class="max-w-6xl mx-auto px-4 md:px-8 grid md:grid-cols-2 gap-8 items-center">
       <div>
@@ -116,34 +120,26 @@
       </div>
 
       <div class="shadow-soft rounded-xl overflow-hidden border aspect-[16/9]" style="border-color:var(--border)">
-        <!-- Portada pedida -->
         <img src="assets/ai-1.jpg" alt="Generación de contenido con IA" class="w-full h-full object-cover">
       </div>
     </div>
   </section>
 
-  <!-- ======= Galería / Servicios ======= -->
+  <!-- Galería / Servicios -->
   <section id="galeria" class="max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Servicio 1 -->
       <article class="card">
         <h3 class="text-xl font-bold">Imágenes con IA</h3>
         <p class="mt-1 muted">Productos, lifestyle, flyers y más en minutos.</p>
-        <!-- Imagen más grande -->
-        <img src="assets/ai-ejemplo-1.JPG" alt="Imágenes IA"
-             class="mt-4 rounded-lg border svc-img" style="border-color:var(--border)">
+        <img src="assets/ai-2.jpg" alt="Imágenes IA" class="mt-4 rounded-lg border svc-img" style="border-color:var(--border)">
       </article>
 
-      <!-- Servicio 2 -->
       <article class="card">
         <h3 class="text-xl font-bold">Contenido para Redes</h3>
         <p class="mt-1 muted">Piezas optimizadas para Instagram y TikTok.</p>
-        <!-- Imagen más grande -->
-        <img src="assets/redes-ejemplo-1.jpg" alt="Creación de contenido para redes"
-             class="mt-4 rounded-lg border svc-img" style="border-color:var(--border)">
+        <img src="assets/content-1.jpg" alt="Creación de contenido para redes" class="mt-4 rounded-lg border svc-img" style="border-color:var(--border)">
       </article>
 
-      <!-- Servicio 3 (sin cambios de imagen) -->
       <article class="card">
         <h3 class="text-xl font-bold">Automatización</h3>
         <p class="mt-1 muted">Agentes que publican y responden por vos.</p>
@@ -158,7 +154,7 @@
     </div>
   </section>
 
-  <!-- ======= Video (sin tocar) ======= -->
+  <!-- Video (sin tocar) -->
   <section id="video" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
     <div class="card">
       <div class="flex items-center justify-between mb-3">
@@ -175,7 +171,7 @@
     </div>
   </section>
 
-  <!-- ======= Footer ======= -->
+  <!-- Footer -->
   <footer class="border-t py-8 text-center muted" style="border-color:var(--border)">
     <p>© <span id="year"></span> AI Business Lab — Hecho con IA</p>
   </footer>
@@ -184,7 +180,7 @@
     // Año en footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Toggle de tema
+    // Toggle tema
     function toggleTheme(){
       const root=document.documentElement;
       const cur=root.dataset.theme==='dark'?'dark':'light';
