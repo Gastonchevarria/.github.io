@@ -1,150 +1,167 @@
-<!DOCTYPE html>
-<html lang="es" data-theme="light">
+<!-- planes.html -->
+<!doctype html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Business Lab — Planes</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#0b1020">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title data-edit="seo.title">Planes — AI Business Lab</title>
+  <meta name="description" data-edit="seo.description" content="Planes simples para imágenes con IA y contenido para redes.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Planes — AI Business Lab">
+  <meta property="og:description" content="Elegí el plan que mejor se adapte a tu proyecto.">
+  <meta property="og:image" content="assets/ai-1.jpg">
+  <meta name="theme-color" content="#0ea5e9">
+  <link rel="icon" href="assets/logo.jpg">
   <style>
-    :root { color-scheme: light dark; }
-
-    :root[data-theme="light"]{
-      --bg:#F8F7F4; --surface:#ffffff; --surface-2:#f8fafc; --border:#e5e7eb;
-      --text:#1f2937; --muted:#6b7280;
-      --indigo:#4f46e5; --cyan:#06b6d4; --emerald:#34d399; --violet:#7c3aed;
+    :root{
+      --bg:#0b1220;--text:#e5e7eb;--muted:#94a3b8;--primary:#0ea5e9;--accent:#22d3ee;
+      --surface:#0f172a;--ring:#38bdf8;--radius:18px;--container:1100px;--logo-h:64px;--shadow:0 8px 24px rgba(0,0,0,.35)
     }
-    :root[data-theme="dark"]{
-      --bg:#0b1020; --surface:#0f172a; --surface-2:#111827; --border:#1f2937;
-      --text:#e5e7eb; --muted:#94a3b8;
-      --indigo:#4f46e5; --cyan:#06b6d4; --emerald:#34d399; --violet:#7c3aed;
-    }
-
-    body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:.75rem;padding:2rem;box-shadow:0 10px 24px -12px rgba(0,0,0,.25);transition:.25s}
-    .plan-card{border-width:2px}
-    .plan-card.active{box-shadow:0 0 40px -10px rgba(124,58,237,.45),0 0 24px -8px rgba(6,182,212,.35);border-color:rgba(124,58,237,.5);transform:translateY(-4px)}
-    .ai-gradient{background:linear-gradient(90deg,var(--indigo),var(--cyan),var(--emerald));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .muted{color:var(--muted)}
-    .appbar{background:var(--surface);border-bottom:1px solid var(--border);backdrop-filter:saturate(1.2) blur(6px)}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto}
+    .container{max-width:var(--container);margin-inline:auto;padding:24px}
+    :focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:10px}
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(0deg,rgba(11,18,32,.4),rgba(11,18,32,.8));backdrop-filter:blur(6px);border-bottom:1px solid rgba(148,163,184,.12)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:var(--logo-h);width:auto;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+    .menu{display:flex;gap:18px;align-items:center}
+    .menu a{padding:8px 12px;border-radius:12px;color:var(--muted)}
+    .menu a:hover,.menu a[aria-current="page"]{color:var(--text);background:rgba(148,163,184,.08)}
+    .cta-mini{background:var(--primary);color:#001018;padding:10px 14px;border-radius:14px;font-weight:700}
+    /* Burger */
+    .burger{display:inline-flex;flex-direction:column;gap:4px;background:transparent;border:0;color:var(--text)}
+    .burger span{height:2px;width:22px;background:currentColor;border-radius:2px}
+    #nav-links{display:none}
+    @media (min-width:820px){.burger{display:none}#nav-links{display:flex}}
+    /* Hero planes */
+    .hero{padding:26px 24px 10px}
+    .hero h1{font-size:clamp(28px,4vw,44px);margin:0 0 8px}
+    .hero p{color:var(--muted);margin:0}
+    /* Pricing */
+    .grid{display:grid;gap:18px}
+    @media (min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{background:var(--surface);border:1px solid rgba(148,163,184,.15);border-radius:16px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .pad{padding:22px}
+    .price{font-size:34px;font-weight:800;margin:10px 0}
+    .feat{display:grid;gap:8px;margin:10px 0 18px;color:var(--muted)}
+    .feat span{display:flex;gap:8px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 16px;background:linear-gradient(90deg,var(--primary),var(--accent));color:#04131c;border-radius:14px;font-weight:800}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.15);font-size:12px}
+    footer{border-top:1px solid rgba(148,163,184,.12);color:var(--muted)}
   </style>
-
-  <script>
-    (function(){try{
-      const saved=localStorage.getItem('theme');
-      const prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme=saved || (prefersDark ? 'dark':'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    }catch(_){}})();
-  </script>
 </head>
-<body class="antialiased">
+<body>
+  <!-- EDIT-GUIDE: Índice de anclas
+    data-edit disponibles:
+    seo.title, seo.description,
+    brand.name, brand.logoAlt,
+    nav.home, nav.services, nav.about, nav.pricing, nav.contact,
+    hero.title, hero.subtitle,
+    plan1.name, plan1.price, plan1.cta, plan1.items,
+    plan2.name, plan2.price, plan2.cta, plan2.items,
+    plan3.name, plan3.price, plan3.cta, plan3.items
+  -->
 
-  <!-- Header fijo con menú + switch -->
-  <header class="fixed top-0 left-0 right-0 z-50 appbar">
-    <div class="max-w-6xl mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center justify-between">
-      <a href="index.html" class="inline-flex items-center gap-3">
-        <img src="assets/logo.jpg" alt="AI Business Lab" width="160" height="48"
-             class="h-7 sm:h-8 md:h-9 w-auto select-none" loading="eager" decoding="async">
-        <span class="sr-only">AI Business Lab</span>
+  <a class="visually-hidden" href="#contenido">Saltar a contenido</a>
+
+  <header role="banner">
+    <div class="container nav">
+      <a href="index.html#inicio" class="brand" aria-label="Inicio">
+        <!-- EDIT: brand-logo -->
+        <img src="assets/logo.jpg" alt="Logo AI Business Lab" data-edit="brand.logoAlt" width="160" height="160" decoding="async">
+        <span data-edit="brand.name">AI Business Lab</span>
       </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="index.html" class="muted">Inicio</a>
-        <a href="#plans" class="muted">Planes</a>
-        <a href="#process" class="muted">Proceso</a>
-        <a href="#terms" class="muted">Términos</a>
-        <a href="#contact-card" class="muted">Contacto</a>
-        <button id="themeSwitch" type="button" role="switch" aria-checked="false"
-                aria-label="Cambiar entre modo claro y oscuro"
-                class="ml-2 inline-flex items-center justify-center w-10 h-10 rounded-full border"
-                style="border-color:var(--border);background:var(--surface-2)">
-          <span id="themeIcon" aria-hidden="true">🌙</span>
+      <nav aria-label="Navegación principal">
+        <button class="burger" id="burger" aria-controls="nav-links" aria-expanded="false">
+          <span></span><span></span><span></span>
+          <span class="visually-hidden">Abrir menú</span>
         </button>
+        <div id="nav-links" class="menu" role="menubar">
+          <a role="menuitem" href="index.html#inicio" data-edit="nav.home">Inicio</a>
+          <a role="menuitem" href="index.html#servicios" data-edit="nav.services">Servicios</a>
+          <a role="menuitem" href="index.html#nosotros" data-edit="nav.about">Sobre mí</a>
+          <a role="menuitem" href="planes.html" aria-current="page" data-edit="nav.pricing">Planes</a>
+          <a role="menuitem" href="index.html#contacto" class="cta-mini" data-edit="nav.contact">Contacto</a>
+        </div>
       </nav>
     </div>
   </header>
-  <div class="h-14 md:h-16"></div>
 
-  <!-- ========== AQUÍ VA TU CONTENIDO DE WebGasti (ya en español) ========== -->
-  <div class="container mx-auto px-4 md:px-8 max-w-6xl">
-    <main>
-      <!-- Ejemplo: tus tarjetas de Planes + Contacto (puedes pegar tu HTML original aquí) -->
-      <section id="plans" class="mb-16 pt-8">
-        <div class="text-center mb-10 max-w-3xl mx-auto">
-          <h2 class="text-3xl md:text-4xl font-extrabold ai-gradient">Nuestros Planes</h2>
-          <p class="mt-2 muted">Elegí un plan. Podés hacer clic para resaltarlo.</p>
-        </div>
+  <main id="contenido" tabindex="-1">
+    <section class="container hero" aria-labelledby="title">
+      <h1 id="title" data-edit="hero.title"><!-- EDIT: hero-title -->Planes pensados para publicar sin fricción</h1>
+      <p data-edit="hero.subtitle"><!-- EDIT: hero-subtitle -->Elegí un plan y empezá hoy mismo. Todo se entrega listo para usar.</p>
+    </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <article id="plan-pro" class="card plan-card cursor-pointer">
-            <h3 class="text-2xl font-bold">Plan Pro</h3>
-            <p class="text-4xl font-extrabold my-4">$199 <span class="text-lg font-normal muted">/mes</span></p>
-            <ul class="space-y-3 muted">
-              <li>✓ Web con carrito</li><li>✓ 15 videos/mes IA</li><li>✓ 30 imágenes/mes IA</li>
-              <li>✓ Instagram Negocios</li><li>✓ Agente de Contenido (Telegram)</li>
-              <li class="opacity-60">✗ Agente Conversacional (WhatsApp + IG)</li>
-            </ul>
-          </article>
-
-          <article id="plan-ultra" class="card plan-card cursor-pointer active">
-            <div class="inline-flex items-center gap-2">
-              <h3 class="text-2xl font-bold">Plan Ultra</h3>
-              <span class="px-2 py-0.5 rounded-full text-xs" style="border:1px solid rgba(124,58,237,.45); background:rgba(124,58,237,.18)">Popular</span>
+    <section class="container" aria-label="Lista de planes">
+      <div class="grid" role="list">
+        <!-- PLAN 1 -->
+        <article class="card" role="listitem" aria-labelledby="p1">
+          <div class="pad">
+            <span class="badge">Ideal para probar</span>
+            <h2 id="p1" data-edit="plan1.name"><!-- EDIT: plan1-name -->Starter</h2>
+            <div class="price" data-edit="plan1.price"><!-- EDIT: plan1-price -->$39</div>
+            <div class="feat" data-edit="plan1.items"><!-- EDIT: plan1-items -->
+              <span>✅ 5 imágenes con IA</span>
+              <span>✅ 5 piezas para redes</span>
+              <span>✅ Entrega en 48 h</span>
             </div>
-            <p class="text-4xl font-extrabold my-4">$299 <span class="text-lg font-normal muted">/mes</span></p>
-            <ul class="space-y-3 muted">
-              <li>✓ Web con carrito</li><li>✓ 20 videos/mes IA</li><li>✓ 50 imágenes/mes IA</li>
-              <li>✓ Instagram Negocios</li><li>✓ Agente de Contenido (Telegram)</li>
-              <li>✓ Agente Conversacional (WhatsApp + IG)</li>
-            </ul>
-          </article>
+            <a class="btn" href="index.html#contacto" data-edit="plan1.cta">Empezar</a>
+          </div>
+        </article>
 
-          <article id="contact-card" class="card">
-            <h3 class="text-2xl font-extrabold ai-gradient mb-2">Contacto</h3>
-            <p class="mb-1"><strong>Representante:</strong> Gastón Chevarria</p>
-            <p class="mb-1"><strong>Email:</strong> <a href="mailto:gaston_ch27@hotmail.com" class="underline">gaston_ch27@hotmail.com</a></p>
-            <p class="mb-4"><strong>Teléfono:</strong> +54 9 11 5619-5680</p>
-            <a href="mailto:gaston_ch27@hotmail.com?subject=Quiero%20info%20AI%20Business%20Lab"
-               class="inline-flex items-center justify-center mt-2 px-4 py-2 rounded-lg font-semibold"
-               style="background:linear-gradient(90deg,var(--violet),var(--cyan));box-shadow:0 10px 20px -10px rgba(124,58,237,.6);">
-              Escribime ahora
-            </a>
-          </article>
-        </div>
-      </section>
+        <!-- PLAN 2 -->
+        <article class="card" role="listitem" aria-labelledby="p2">
+          <div class="pad">
+            <span class="badge">Más popular</span>
+            <h2 id="p2" data-edit="plan2.name"><!-- EDIT: plan2-name -->Pro</h2>
+            <div class="price" data-edit="plan2.price"><!-- EDIT: plan2-price -->$99</div>
+            <div class="feat" data-edit="plan2.items"><!-- EDIT: plan2-items -->
+              <span>✅ 15 imágenes con IA</span>
+              <span>✅ 15 piezas para redes</span>
+              <span>✅ Revisión incluida</span>
+            </div>
+            <a class="btn" href="index.html#contacto" data-edit="plan2.cta">Quiero este</a>
+          </div>
+        </article>
 
-      <!-- (Resto de secciones: Proceso, Términos, etc. …) -->
-    </main>
+        <!-- PLAN 3 -->
+        <article class="card" role="listitem" aria-labelledby="p3">
+          <div class="pad">
+            <span class="badge">A medida</span>
+            <h2 id="p3" data-edit="plan3.name"><!-- EDIT: plan3-name -->Empresa</h2>
+            <div class="price" data-edit="plan3.price"><!-- EDIT: plan3-price -->$ —</div>
+            <div class="feat" data-edit="plan3.items"><!-- EDIT: plan3-items -->
+              <span>✅ Pack mensual de contenido</span>
+              <span>✅ Automatizaciones y templates</span>
+              <span>✅ Atención prioritaria</span>
+            </div>
+            <a class="btn" href="index.html#contacto" data-edit="plan3.cta">Pedir propuesta</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
-    <footer class="text-center mt-16 pb-12 muted">
-      © 2025 AI Business Lab. Todos los derechos reservados.
-    </footer>
-  </div>
+  <footer role="contentinfo">
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <small>© <span id="y"></span> <span data-edit="brand.name">AI Business Lab</span>.</small>
+      <a href="#contenido">Volver arriba ↑</a>
+    </div>
+  </footer>
 
   <script>
-    // Estado inicial de tema
-    (function(){
-      const theme = document.documentElement.getAttribute('data-theme') || 'light';
-      const btn=document.getElementById('themeSwitch');
-      const icon=document.getElementById('themeIcon');
-      function apply(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);
-        const d=t==='dark';btn.setAttribute('aria-checked',String(d));icon.textContent=d?'☀️':'🌙';}
-      apply(theme);
-      btn.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
-      const mq=window.matchMedia('(prefers-color-scheme: dark)');
-      mq.addEventListener?.('change',e=>{ if(!localStorage.getItem('theme')) apply(e.matches?'dark':'light'); });
-    })();
-
-    // Interacción de tarjetas
-    const cards=[...document.querySelectorAll('.plan-card')];
-    cards.forEach(c=>c.addEventListener('click',()=>{cards.forEach(x=>x.classList.remove('active'));c.classList.add('active')}));
+    const burger=document.getElementById('burger');
+    const links=document.getElementById('nav-links');
+    const mq=window.matchMedia('(min-width:820px)');
+    function setMenu(state){links.style.display= state||mq.matches ? 'flex':'none'; burger.setAttribute('aria-expanded', state ? 'true':'false');}
+    burger?.addEventListener('click',()=>setMenu(links.style.display!=='flex'));
+    window.addEventListener('resize',()=>setMenu());
+    document.getElementById('y').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
